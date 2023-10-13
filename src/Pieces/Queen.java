@@ -1,13 +1,10 @@
 package Pieces;
 
-public class Queen {
-    int color;
-    Position position;
-
+public class Queen extends Pieces{
     public Queen(int color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
+
     public String toString() {
         return "Q";
     }

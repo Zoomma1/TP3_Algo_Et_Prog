@@ -1,14 +1,11 @@
 package Pieces;
 
 
-public class Rook {
-    int color;
-    Position position;
-
-    public Rook(int color,Position position) {
-        this.color = color;
-        this.position = position;
+public class Rook extends Pieces{
+    public Rook(int color, Position position) {
+        super(color, position);
     }
+
     public String toString() {
         return "R";
     }

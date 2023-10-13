@@ -1,14 +1,11 @@
 package Pieces;
 
-public class Knight {
-    int color;
-    Position position;
 
-
-    public Knight(int color,Position position) {
-        this.color = color;
-        this.position=position;
+public class Knight extends Pieces{
+    public Knight(int color, Position position) {
+        super(color, position);
     }
+
     public String toString() {
         return "N";
     }

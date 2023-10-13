@@ -1,13 +1,10 @@
 package Pieces;
 
-public class Pawn {
-    int color;
-    Position position;
-    public Pawn(int color,Position position) {
-        this.color = color;
-        this.position = position;
-
+public class Pawn extends Pieces{
+    public Pawn(int color, Position position) {
+        super(color, position);
     }
+
     public String toString() {
         return "P";
     }

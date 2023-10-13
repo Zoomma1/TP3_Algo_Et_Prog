@@ -1,14 +1,12 @@
 package Pieces;
 
-public class Bishop {
-    int color;
-    Position position;
+public class Bishop extends Pieces {
 
+    public Bishop(int color, Position position) {
+        super(color, position);
 
-    public Bishop(int color,Position position) {
-        this.color = color;
-        this.position = position;
     }
+
     public String toString() {
         return "B";
     }

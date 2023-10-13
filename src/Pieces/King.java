@@ -1,12 +1,10 @@
 package Pieces;
 
-public class King {
-    int color;
-    Position position;
+public class King extends Pieces {
     public King(int color, Position position) {
-        this.color = color;
-        this.position = position;
+        super(color, position);
     }
+
     public String toString() {
         return "K";
     }

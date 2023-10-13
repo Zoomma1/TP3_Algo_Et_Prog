@@ -1,3 +1,5 @@
+package Pieces;
+
 import Pieces.Position;
 
 public class Cell {
