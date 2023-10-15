@@ -1,5 +1,3 @@
-package Pieces;
-
 public class Position{
     Character column;
     int row;

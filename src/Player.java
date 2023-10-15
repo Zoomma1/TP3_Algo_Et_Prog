@@ -1,5 +1,3 @@
-package Pieces;
-
 public class Player {
     String name;
     int color;
@@ -12,7 +10,6 @@ public class Player {
     public String getName() {
         return name;
     }
-
     public String toString() {
         return name;
     }

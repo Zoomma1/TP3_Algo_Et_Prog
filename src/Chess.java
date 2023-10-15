@@ -1,5 +1,4 @@
-import Pieces.*;
-
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Chess {
@@ -37,65 +36,153 @@ public class Chess {
     }
     private void initialiseBoard(){
         board = new Cell[8][8];
-        Pawn pawnw1 = new Pawn(0,new Position('a',1));
-        Pawn pawnw2 = new Pawn(0,new Position('b',1));
-        Pawn pawnw3 = new Pawn(0,new Position('c',1));
-        Pawn pawnw4 = new Pawn(0,new Position('d',1));
-        Pawn pawnw5 = new Pawn(0,new Position('e',1));
-        Pawn pawnw6 = new Pawn(0,new Position('f',1));
-        Pawn pawnw7 = new Pawn(0,new Position('g',1));
-        Pawn pawnw8 = new Pawn(0,new Position('h',1));
-        Rook rookw1 = new Rook(0,new Position('a',0));
-        Rook rookw2 = new Rook(0,new Position('h',0));
-        Knight knightw1 = new Knight(0,new Position('b',0));
-        Knight knightw2 = new Knight(0,new Position('g',0));
-        Bishop bishopw1 = new Bishop(0,new Position('c',0));
-        Bishop bishopw2 = new Bishop(0,new Position('f',0));
-        King kingw = new King(0,new Position('e',0));
-        Queen queenw = new Queen(0,new Position('d',0));
+//      White pieces creation
+        Pawn pawnw1 = new Pawn(0,new Position('a',2));
+        Pawn pawnw2 = new Pawn(0,new Position('b',2));
+        Pawn pawnw3 = new Pawn(0,new Position('c',2));
+        Pawn pawnw4 = new Pawn(0,new Position('d',2));
+        Pawn pawnw5 = new Pawn(0,new Position('e',2));
+        Pawn pawnw6 = new Pawn(0,new Position('f',2));
+        Pawn pawnw7 = new Pawn(0,new Position('g',2));
+        Pawn pawnw8 = new Pawn(0,new Position('h',2));
+        board[0][1] = new Cell(pawnw1.position,false,'P');
+        board[1][1] = new Cell(pawnw2.position,false,'P');
+        board[2][1] = new Cell(pawnw3.position,false,'P');
+        board[3][1] = new Cell(pawnw4.position,false,'P');
+        board[4][1] = new Cell(pawnw5.position,false,'P');
+        board[5][1] = new Cell(pawnw6.position,false,'P');
+        board[6][1] = new Cell(pawnw7.position,false,'P');
+        board[7][1] = new Cell(pawnw8.position,false,'P');
+        Rook rookw1 = new Rook(0,new Position('a',1));
+        Rook rookw2 = new Rook(0,new Position('h',1));
+        board[0][0] = new Cell(rookw1.position,false,'R');
+        board[7][0] = new Cell(rookw2.position,false,'R');
+        Knight knightw1 = new Knight(0,new Position('b',1));
+        Knight knightw2 = new Knight(0,new Position('g',1));
+        board[1][0] = new Cell(knightw1.position,false,'N');
+        board[6][0] = new Cell(knightw2.position,false,'N');
+        Bishop bishopw1 = new Bishop(0,new Position('c',1));
+        Bishop bishopw2 = new Bishop(0,new Position('f',1));
+        board[2][0] = new Cell(bishopw1.position,false,'B');
+        board[5][0] = new Cell(bishopw2.position,false,'B');
+        King kingw = new King(0,new Position('e',1));
+        board[4][0] = new Cell(kingw.position,false,'K');
+        Queen queenw = new Queen(0,new Position('d',1));
+        board[3][0] = new Cell(queenw.position,false,'Q');
+//      Black pieces creation
+        Pawn pawnb1 = new Pawn(1,new Position('a',7));
+        Pawn pawnb2 = new Pawn(1,new Position('b',7));
+        Pawn pawnb3 = new Pawn(1,new Position('c',7));
+        Pawn pawnb4 = new Pawn(1,new Position('d',7));
+        Pawn pawnb5 = new Pawn(1,new Position('e',7));
+        Pawn pawnb6 = new Pawn(1,new Position('f',7));
+        Pawn pawnb7 = new Pawn(1,new Position('g',7));
+        Pawn pawnb8 = new Pawn(1,new Position('h',7));
+        board[0][7] = new Cell(pawnb1.position,false,'P');
+        board[1][7] = new Cell(pawnb2.position,false,'P');
+        board[2][7] = new Cell(pawnb3.position,false,'P');
+        board[3][7] = new Cell(pawnb4.position,false,'P');
+        board[4][7] = new Cell(pawnb5.position,false,'P');
+        board[5][7] = new Cell(pawnb6.position,false,'P');
+        board[6][7] = new Cell(pawnb7.position,false,'P');
+        board[7][7] = new Cell(pawnb8.position,false,'P');
+        Rook rookb1 = new Rook(1,new Position('a',8));
+        Rook rookb2 = new Rook(1,new Position('h',8));
+        board[0][7] = new Cell(rookb1.position,false,'R');
+        board[7][7] = new Cell(rookb2.position,false,'R');
+        Knight knightb1 = new Knight(1,new Position('b',8));
+        Knight knightb2 = new Knight(1,new Position('g',8));
+        board[1][7] = new Cell(knightb1.position,false,'N');
+        board[6][7] = new Cell(knightb2.position,false,'N');
+        Bishop bishopb1 = new Bishop(1,new Position('c',8));
+        Bishop bishopb2 = new Bishop(1,new Position('f',8));
+        board[2][7] = new Cell(bishopb1.position,false,'B');
+        board[5][7] = new Cell(bishopb2.position,false,'B');
+        King kingb = new King(1,new Position('e',8));
+        board[4][7] = new Cell(kingb.position,false,'K');
+        Queen queenb = new Queen(1,new Position('d',8));
+        board[3][7] = new Cell(queenb.position,false,'Q');
+//      Empty cell creation
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                board[i][j] = new Cell(new Position((char)('a'+i),j),false,' ');
+            }
+        }
 
-        Pawn pawnb1 = new Pawn(0,new Position('a',7));
-        Pawn pawnb2 = new Pawn(0,new Position('b',7));
-        Pawn pawnb3 = new Pawn(0,new Position('c',7));
-        Pawn pawnb4 = new Pawn(0,new Position('d',7));
-        Pawn pawnb5 = new Pawn(0,new Position('e',7));
-        Pawn pawnb6 = new Pawn(0,new Position('f',7));
-        Pawn pawnb7 = new Pawn(0,new Position('g',7));
-        Pawn pawnb8 = new Pawn(0,new Position('h',7));
-        Rook rookb1 = new Rook(0,new Position('a',6));
-        Rook rookb2 = new Rook(0,new Position('h',6));
-        Knight knightb1 = new Knight(0,new Position('b',6));
-        Knight knightb2 = new Knight(0,new Position('g',6));
-        Bishop bishopb1 = new Bishop(0,new Position('c',6));
-        Bishop bishopb2 = new Bishop(0,new Position('f',6));
-        King kingb = new King(0,new Position('e',6));
-        Queen queenb = new Queen(0,new Position('d',6));
-        //place pieces in starting position ?
     }
     private void printBoard(){}
     private String askMove(){
         String pieceToMove;
         String nextMove;
+        if(currentPlayer==players[0]) System.out.println("White player,");
+        else System.out.println("Black player:");
         do {
             System.out.println("What piece do you want to move ?(ex : Pb2)");
             pieceToMove = ask_something.nextLine();
-        }while (pieceToMove=="");
+        }while ("".equals(pieceToMove));
         do {
             System.out.println("Where do you want to move it ?(ex : b3)");
             nextMove = ask_something.nextLine();
-        }while (nextMove=="");
+        }while ("".equals(nextMove));
         return(pieceToMove+" "+nextMove);
     }
     private boolean isValidMove(String move){
-
-        return true;
+        int y = move.charAt(2)-48;
+        String pieceToMove = move.substring(0,1);
+        switch (pieceToMove) {
+            case "P" -> {
+                Pawn pawn = new Pawn(0, new Position(move.charAt(1), y));
+                if(pieceToMove.equals(pawn.toString())){
+                    return pawn.isValidMove(new Position(move.charAt(1), y), board);
+                }
+                return false;
+            }
+            case "B" -> {
+                Bishop bishop = new Bishop(0, new Position(move.charAt(0), y));
+                if(pieceToMove.equals(bishop.toString())){
+                    return bishop.isValidMove(new Position(move.charAt(1), y), board);
+                }
+                return false;
+            }
+            case "N" -> {
+                Knight knight = new Knight(0, new Position(move.charAt(0), y));
+                if(pieceToMove.equals(knight.toString())){
+                    return knight.isValidMove(new Position(move.charAt(1), y), board);
+                }
+                return false;
+            }
+            case "R" -> {
+                Rook rook = new Rook(0, new Position(move.charAt(0), y));
+                if(pieceToMove.equals(rook.toString())){
+                    return rook.isValidMove(new Position(move.charAt(1), y), board);
+                }
+                return false;
+            }
+            case "K" -> {
+                King king = new King(0, new Position(move.charAt(0), y));
+                if(pieceToMove.equals(king.toString())){
+                    return king.isValidMove(new Position(move.charAt(1), y), board);
+                }
+                return false;
+            }
+            case "Q" -> {
+                Queen queen = new Queen(0, new Position(move.charAt(0), y));
+                if(pieceToMove.equals(queen.toString())){
+                    return queen.isValidMove(new Position(move.charAt(1), y), board);
+                }
+                return false;
+            }
+        }
+        System.out.println("Move is not valid !");
+        return false;
     }
     private boolean isCheckMate(){
-        //does the king have a valid move ?
-        //can any other piece counter the check ?
+//        does the king have a valid move ?
+//        can any other piece counter the check ?
         return false;
     }
     private void updateBoard(String move){}
+//      todo
     private void switchPlayer(){
         if (currentPlayer.equals(players[0])){
             currentPlayer = players[1];

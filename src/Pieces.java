@@ -1,5 +1,3 @@
-package Pieces;
-
 public class Pieces {
     int color;
     Position position;
