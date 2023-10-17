@@ -8,5 +8,10 @@ public class Cell {
         this.isEmpty = isEmpty;
         this.pieces = pieces;
     }
-    public char whatPiece(){return Cell.this.pieces;}
+    public void setEmpty(Boolean isEmpty){
+        this.isEmpty = isEmpty;
+    }
+    public void setPieces(Character pieces){
+        this.pieces = pieces;
+    }
 }

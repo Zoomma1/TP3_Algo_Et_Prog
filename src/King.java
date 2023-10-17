@@ -13,7 +13,7 @@ public class King extends Pieces {
 
         return valid_board_char.substring(valid_board_char.indexOf(newPosition.row) - 1, valid_board_char.indexOf(newPosition.row) + 1).indexOf(newPosition.row) != -1
                 || valid_board_num.substring(valid_board_num.indexOf(newPosition.column) - 1, valid_board_num.indexOf(newPosition.column) + 1).indexOf(newPosition.column) != -1
-                || valid_board.indexOf(newPosition.toString().charAt(0)) != -1 || valid_board.indexOf(newPosition.toString().charAt(1)) != -1;
+                || valid_board.indexOf(newPosition.column) != -1 || valid_board.indexOf(newPosition.row) != -1;
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;

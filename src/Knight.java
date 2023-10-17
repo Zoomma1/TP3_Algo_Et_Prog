@@ -13,7 +13,7 @@ public class Knight extends Pieces{
                 (char)(position.row + 1)+Integer.toString(position.column+2) + " " + (char)(position.row + 1)+Integer.toString(position.column - 2)+
                 (char)(position.row - 1)+Integer.toString(position.column+2) + " " + (char)(position.row - 1)+Integer.toString(position.column - 2);
 
-        return valid_board.indexOf(newPosition.toString().charAt(0)) != -1 && valid_board.indexOf(newPosition.toString().charAt(1)) != -1 && valid_positions.contains(String.valueOf(newPosition));
+        return valid_board.indexOf(newPosition.column) != -1 && valid_board.indexOf(newPosition.row) != -1 && valid_positions.contains(String.valueOf(newPosition));
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;
