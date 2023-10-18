@@ -7,7 +7,6 @@ public class Queen extends Pieces{
         return "Q";
     }
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        String valid_board = "a b c d e f g h 1 2 3 4 5 6 7 8";
         String valid_positions = "";
         int i = position.row + 1,j = position.column - 48 + 1;
         int currentRow = position.row , currentColumn = position.column;
@@ -80,7 +79,7 @@ public class Queen extends Pieces{
                 return false;
             }
         }
-        return valid_positions.contains(String.valueOf(newPosition)) && valid_board.indexOf(newPosition.column)!=-1 && valid_board.indexOf(newPosition.row)!=-1;
+        return valid_positions.contains(String.valueOf(newPosition));
     }
 
     public void setNewPosition(Position newPosition){

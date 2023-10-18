@@ -7,13 +7,19 @@ public class Knight extends Pieces{
         return "N";
     }
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        String valid_board = "a b c d e f g h 1 2 3 4 5 6 7 8";
-        String valid_positions = (char)(position.row + 2)+Integer.toString(position.column+1) + " " + (char)(position.row + 2)+Integer.toString(position.column - 1) +
-                (char)(position.row - 2)+Integer.toString(position.column+1) + " " + (char)(position.row - 2)+Integer.toString(position.column - 1) +
-                (char)(position.row + 1)+Integer.toString(position.column+2) + " " + (char)(position.row + 1)+Integer.toString(position.column - 2)+
-                (char)(position.row - 1)+Integer.toString(position.column+2) + " " + (char)(position.row - 1)+Integer.toString(position.column - 2);
-
-        return valid_board.indexOf(newPosition.column) != -1 && valid_board.indexOf(newPosition.row) != -1 && valid_positions.contains(String.valueOf(newPosition));
+        int newPosX = newPosition.column - 97;
+        int newPosY = newPosition.row;
+        if(!board[newPosX][newPosY].isEmpty){
+            if(color != board[newPosX][newPosY].pieces.getColor()){
+                return false;
+            }
+        }
+        int deltaX = Math.abs(newPosition.column - position.column);
+        int deltaY = Math.abs(newPosition.row - position.row);
+        if ((deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2)) {
+            return newPosX >= 0 && newPosX < 8 && newPosY >= 0 && newPosY < 8;
+        }
+        return false;
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;

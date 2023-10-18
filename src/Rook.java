@@ -7,7 +7,6 @@ public class Rook extends Pieces{
         return "R";
     }
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        String valid_board = "a b c d e f g h 1 2 3 4 5 6 7 8";
         String valid_positions = "";
         int currentRow = position.row , currentColumn = position.column;
         int newRow = newPosition.row , newColumn = newPosition.column;
@@ -46,7 +45,7 @@ public class Rook extends Pieces{
                 return false;
             }
         }
-        return valid_positions.contains(String.valueOf(newPosition)) && valid_board.indexOf(newPosition.column)!=-1 && valid_board.indexOf(newPosition.row)!=-1;
+        return valid_positions.contains(String.valueOf(newPosition));
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;

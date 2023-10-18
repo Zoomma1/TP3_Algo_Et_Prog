@@ -7,10 +7,25 @@ public class Pawn extends Pieces{
         return "P";
     }
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        String valid_board = "a b c d e f g h 1 2 3 4 5 6 7 8";
-        System.out.println(valid_board.indexOf("%s".formatted(newPosition.row)));
-        return valid_board.contains("%s".formatted(newPosition.row)) && valid_board.contains("%s".formatted(newPosition.column)) && board[newPosition.row][(int)(newPosition.column-97-1)].isEmpty
-                && position.column == newPosition.column && newPosition.row - position.row != 1;
+        int deltaX = Math.abs(newPosition.column - position.column);
+        int deltaY = Math.abs(newPosition.row - position.row);
+        if (deltaX == 0) {
+            int yDirection = (getColor() == 0) ? 1 : -1;
+            if (deltaY == 1 && (newPosition.row == position.row + yDirection)) {
+                if (board[newPosition.column-97][newPosition.row].isEmpty) {
+                    return true;
+                }
+            }
+            else if (deltaY == 2 && (newPosition.row == position.row + 2 * yDirection)) {
+                if ((getColor() == 0 && position.row == 2) || (getColor() == 1 && position.row == 7)) {
+                    if (board[position.column-97][position.row + yDirection].isEmpty &&
+                            board[newPosition.column-97][newPosition.row].isEmpty) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;
