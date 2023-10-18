@@ -31,53 +31,43 @@ public class Chess {
         Player player2 = new Player(ask_something.nextLine(),1);
         players[1]=player2;
     }
-    private void initialiseBoard(){
+    private void initialiseBoard() {
         board = new Cell[8][8];
-//      Empty cell initialisation
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board[i][j] = new Cell(new Position((char)('a'+i),j),true,null);
-            }
-        }
 //      White pawn initialisation
-        for (char c = 'a'; c <= 'h' ; c++) {
-            board[1][c-'a'].setPieces(new Pawn(0,new Position(c,2)));
-        }
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 8; j++) {
-                board[i][j].setEmpty(false);
-            }
-        }
-        for (int i = 6; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board[i][j].setEmpty(false);
-            }
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Cell(new Position((char) ('a' + i), 2), new Pawn(0, new Position((char) ('a' + i), 2)));
         }
 //      Black pawn initialisation
-        for (char c = 'a'; c <= 'h' ; c++) {
-            board[6][c-'a'].setPieces(new Pawn(1,new Position(c,7)));
+        for (int i = 0; i < 8; i++) {
+            board[6][i] = new Cell(new Position((char) ('a' + i), 7), new Pawn(1, new Position((char) ('a' + i), 7)));
         }
 //      Rook initialisation
-        board[0][0].setPieces(new Rook(0,new Position('a',1)));
-        board[0][7].setPieces(new Rook(0,new Position('h',1)));
-        board[7][0].setPieces(new Rook(1,new Position('a',8)));
-        board[7][7].setPieces(new Rook(1,new Position('h',8)));
+        board[0][0] = new Cell(new Position('a', 1), new Rook(0, new Position('a', 1)));
+        board[0][7] = new Cell(new Position('h', 1), new Rook(0, new Position('h', 1)));
+        board[7][0] = new Cell(new Position('a', 8), new Rook(1, new Position('a', 8)));
+        board[7][7] = new Cell(new Position('h', 8), new Rook(1, new Position('h', 8)));
 //      Knight initialisation
-        board[0][1].setPieces(new Knight(0,new Position('b',1)));
-        board[0][6].setPieces(new Knight(0,new Position('g',1)));
-        board[7][1].setPieces(new Knight(1,new Position('b',8)));
-        board[7][6].setPieces(new Knight(1,new Position('g',8)));
+        board[0][1] = new Cell(new Position('b', 1), new Knight(0, new Position('b', 1)));
+        board[0][6] = new Cell(new Position('g', 1), new Knight(0, new Position('g', 1)));
+        board[7][1] = new Cell(new Position('b', 8), new Knight(1, new Position('b', 8)));
+        board[7][6] = new Cell(new Position('g', 8), new Knight(1, new Position('g', 8)));
 //      Bishop Initialisation
-        board[0][2].setPieces(new Bishop(0,new Position('c',1)));
-        board[0][5].setPieces(new Bishop(0,new Position('f',1)));
-        board[7][2].setPieces(new Bishop(1,new Position('c',8)));
-        board[7][5].setPieces(new Bishop(1,new Position('f',8)));
+        board[0][2] = new Cell(new Position('c', 1), new Bishop(0, new Position('c', 1)));
+        board[0][5] = new Cell(new Position('f', 1), new Bishop(0, new Position('f', 1)));
+        board[7][2] = new Cell(new Position('c', 8), new Bishop(1, new Position('c', 8)));
+        board[7][5] = new Cell(new Position('f', 8), new Bishop(1, new Position('f', 8)));
 //      Queen initialisation
-        board[0][3].setPieces(new Queen(0,new Position('d',1)));
-        board[7][3].setPieces(new Queen(1,new Position('d',8)));
+        board[0][3] = new Cell(new Position('d', 1), new Queen(0, new Position('d', 1)));
+        board[7][3] = new Cell(new Position('d', 8), new Queen(1, new Position('d', 8)));
 //      King initialisation
-        board[0][4].setPieces(new King(0,new Position('e',1)));
-        board[7][4].setPieces(new King(1,new Position('e',8)));
+        board[0][4] = new Cell(new Position('e', 1), new King(0, new Position('e', 1)));
+        board[7][4] = new Cell(new Position('e', 8), new King(1, new Position('e', 8)));
+//      Empty cell initialisation
+        for (int i = 2; i < 6; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Cell(new Position((char) ('a' + j), i + 1), null);
+            }
+        }
     }
     private void printBoard(){
         for (int i = 0; i < 8; i++) {
@@ -199,9 +189,7 @@ public class Chess {
         int destX = move.charAt(4) - 97;
         int destY = move.charAt(5) - 49;
         Pieces pieces = board[startY][startX].getPieces();
-        board[startY][startX].setEmpty(true);
         board[startY][startX].setPieces(null);
-        board[destY][destX].setEmpty(false);
         board[destY][destX].setPieces(pieces);
     }
     private void switchPlayer(){

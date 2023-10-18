@@ -16,21 +16,18 @@ public class Bishop extends Pieces {
             int startY = position.row;
             int destX = newPosition.column - 97;
             int destY = newPosition.row;
-
             int xDirection = (destX > startX) ? 1 : -1;
             int yDirection = (destY > startY) ? 1 : -1;
-
             for (int i = 1; i < deltaX; i++) {
                 int x = startX + i * xDirection;
                 int y = startY + i * yDirection;
 
-                if (!board[x][y].isEmpty) {
+                if (!board[x][y].isEmpty()) {
                     return false;
                 }
             }
-
             Pieces pieceAtDestination = board[destX][destY].getPieces();
-            if (board[destX][destY].isEmpty || pieceAtDestination.getColor() != this.getColor()) {
+            if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
                 return true;
             }
         }

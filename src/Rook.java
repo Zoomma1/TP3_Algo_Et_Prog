@@ -7,45 +7,39 @@ public class Rook extends Pieces{
         return "R";
     }
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        String valid_positions = "";
-        int currentRow = position.row , currentColumn = position.column;
-        int newRow = newPosition.row , newColumn = newPosition.column;
-        int whereToX = newRow - currentRow, whereToY = newColumn - currentColumn;
-        int i = 0;
-        if (whereToX == 0 && whereToY > 0){
-            i = currentColumn - 48;
-            while (i < 8){
-                valid_positions += "%c%d".formatted((char)(currentColumn + i), currentRow);
-                i++;
+        int deltaX = Math.abs(newPosition.column - position.column);
+        int deltaY = Math.abs(newPosition.row - position.row);
+        if (deltaX == 0 || deltaY == 0) {
+            int startX = position.column - 97;
+            int startY = position.row;
+            int destX = newPosition.column - 97;
+            int destY = newPosition.row;
+            if (deltaX != 0){
+                int Direction = (destX > startX) ? 1 : -1;
+                for (int i = 1; i < deltaX; i++) {
+                    int x = startX - 1 + i * Direction;
+
+                    if (!board[x][startY].isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+            else{
+                int Direction = (destX > startX) ? 1 : -1;
+                for (int i = 1; i < deltaY; i++) {
+                    int y = startY + i * Direction;
+
+                    if (!board[startX][y].isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+            Pieces pieceAtDestination = board[destX][destY].getPieces();
+            if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+                return true;
             }
         }
-        else if (whereToX == 0 && whereToY < 0){
-            i = currentColumn - 48;
-            while (i > 0){
-                valid_positions += "%c%d".formatted((char)(currentColumn - i), currentRow);
-                i++;
-            }
-        }
-        else if (whereToX > 0 && whereToY == 0){
-            i = currentRow;
-            while (i < 8){
-                valid_positions += "%c%d".formatted((currentColumn), currentRow + i);
-                i++;
-            }
-        }
-        else if (whereToX < 0 && whereToY == 0) {
-            i = currentRow;
-            while (i > 0) {
-                valid_positions += "%c%d".formatted((currentColumn), currentRow - i);
-                i++;
-            }
-        }
-        for (int j = 0; j < valid_positions.length(); j=j+2) {
-            if (!board[valid_positions.charAt(j)][(int)(valid_positions.charAt(j+1))].isEmpty) {
-                return false;
-            }
-        }
-        return valid_positions.contains(String.valueOf(newPosition));
+        return false;
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;

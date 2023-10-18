@@ -11,20 +11,20 @@ public class Pawn extends Pieces{
         int deltaY = Math.abs(newPosition.row - position.row);
         if (deltaX == 0) {
             int yDirection = (getColor() == 0) ? 1 : -1;
-            if (deltaY == 1 && (newPosition.row == position.row + yDirection)) {
-                if (board[newPosition.column-97][newPosition.row].isEmpty) {
+            int newY = position.row + yDirection;
+            if (deltaY == 1 && newPosition.row == newY) {
+                if (board[newPosition.row - 1][newPosition.column - 97].isEmpty()) {
                     return true;
                 }
             }
-            else if (deltaY == 2 && (newPosition.row == position.row + 2 * yDirection)) {
+            else if (deltaY == 2 && newPosition.row == newY + yDirection) {
                 if ((getColor() == 0 && position.row == 2) || (getColor() == 1 && position.row == 7)) {
-                    if (board[position.column-97][position.row + yDirection].isEmpty &&
-                            board[newPosition.column-97][newPosition.row].isEmpty) {
+                    if (board[newY - 1][position.column - 97].isEmpty() && board[newPosition.row - 1][newPosition.column - 97].isEmpty()) {
                         return true;
                     }
                 }
+                }
             }
-        }
         return false;
     }
     public void setNewPosition(Position newPosition){
