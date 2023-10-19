@@ -97,7 +97,12 @@ public class Chess {
             System.out.println("Where do you want to move it ?(ex : b3)");
             nextMove = ask_something.nextLine();
         }while ("".equals(nextMove));
-        return(pieceToMove+" "+nextMove);
+        String move = (pieceToMove+" "+nextMove);
+        if (move.length() != 6){
+            System.out.println("Unknown move please insert a correct one ");
+            move = askMove();
+        }
+        return(move);
     }
     private boolean isValidMove(String move) {
 //      Gather starting coordinates
@@ -189,6 +194,7 @@ public class Chess {
         int destX = move.charAt(4) - 97;
         int destY = move.charAt(5) - 49;
         Pieces pieces = board[startY][startX].getPieces();
+        pieces.setPosition(board[destY][destX].position);
         board[startY][startX].setPieces(null);
         board[destY][destX].setPieces(pieces);
     }

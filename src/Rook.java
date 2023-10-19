@@ -11,31 +11,29 @@ public class Rook extends Pieces{
         int deltaY = Math.abs(newPosition.row - position.row);
         if (deltaX == 0 || deltaY == 0) {
             int startX = position.column - 97;
-            int startY = position.row;
+            int startY = position.row - 1;
             int destX = newPosition.column - 97;
-            int destY = newPosition.row;
+            int destY = newPosition.row - 1;
             if (deltaX != 0){
                 int Direction = (destX > startX) ? 1 : -1;
-                for (int i = 1; i < deltaX; i++) {
-                    int x = startX - 1 + i * Direction;
-
-                    if (!board[x][startY].isEmpty()) {
+                for (int i = 2; i < deltaX; i++) {
+                    int x = startX + i * Direction;
+                    if (!board[startY][x].isEmpty()) {
                         return false;
                     }
                 }
             }
             else{
                 int Direction = (destX > startX) ? 1 : -1;
-                for (int i = 1; i < deltaY; i++) {
+                for (int i = 2; i < deltaY; i++) {
                     int y = startY + i * Direction;
-
-                    if (!board[startX][y].isEmpty()) {
+                    if (!board[y][startX].isEmpty()) {
                         return false;
                     }
                 }
             }
-            Pieces pieceAtDestination = board[destX][destY].getPieces();
-            if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+            Pieces pieceAtDestination = board[destY][destX].getPieces();
+            if (board[destY][destX].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
                 return true;
             }
         }

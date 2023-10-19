@@ -19,4 +19,7 @@ public class Pieces {
     public String toString() {
         return super.toString();
     }
+    public void setPosition(Position position){
+        this.position = position;
+    }
 }
