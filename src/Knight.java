@@ -4,8 +4,9 @@ public class Knight extends Pieces{
     }
 
     public String toString() {
-        return "N";
+        return color == 1 ? Character.toString((char)(9816)) : Character.toString((char)(9822));
     }
+    public String pieceStringType(){ return "N";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int newPosX = newPosition.column - 97;
         int newPosY = newPosition.row;

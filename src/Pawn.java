@@ -4,8 +4,9 @@ public class Pawn extends Pieces{
     }
 
     public String toString() {
-        return "P";
+        return color == 1 ? Character.toString((char)(9817)) : Character.toString((char)(9823));
     }
+    public String pieceStringType(){ return "P";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);

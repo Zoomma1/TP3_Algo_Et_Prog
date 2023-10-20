@@ -4,8 +4,9 @@ public class Queen extends Pieces{
     }
 
     public String toString() {
-        return "Q";
+        return color == 1 ? Character.toString((char)(9813)) : Character.toString((char)(9819));
     }
+    public String pieceStringType(){ return "Q";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);

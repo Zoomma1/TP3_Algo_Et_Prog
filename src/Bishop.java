@@ -6,8 +6,9 @@ public class Bishop extends Pieces {
     }
 
     public String toString() {
-        return "B";
+        return color == 1 ? Character.toString((char)(9815)) : Character.toString((char)(9821));
     }
+    public String pieceStringType(){ return "B";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);

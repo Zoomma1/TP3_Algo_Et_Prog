@@ -57,11 +57,11 @@ public class Chess {
         board[7][2] = new Cell(new Position('c', 8), new Bishop(1, new Position('c', 8)));
         board[7][5] = new Cell(new Position('f', 8), new Bishop(1, new Position('f', 8)));
 //      Queen initialisation
-        board[0][4] = new Cell(new Position('d', 1), new Queen(0, new Position('d', 1)));
-        board[7][4] = new Cell(new Position('d', 8), new Queen(1, new Position('d', 8)));
+        board[0][3] = new Cell(new Position('d', 1), new Queen(0, new Position('d', 1)));
+        board[7][3] = new Cell(new Position('d', 8), new Queen(1, new Position('d', 8)));
 //      King initialisation
-        board[0][3] = new Cell(new Position('e', 1), new King(0, new Position('e', 1)));
-        board[7][3] = new Cell(new Position('e', 8), new King(1, new Position('e', 8)));
+        board[0][4] = new Cell(new Position('e', 1), new King(0, new Position('e', 1)));
+        board[7][4] = new Cell(new Position('e', 8), new King(1, new Position('e', 8)));
 //      Empty cell initialisation
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
@@ -71,10 +71,10 @@ public class Chess {
     }
     private void printBoard(){
         for (int i = 0; i < 8; i++) {
-            System.out.printf("%d",i+1);
+            System.out.printf("%d",8 - i);
             for (int j = 0; j < 8; j++) {
-                if(board[i][j].getPieces()!=null) {
-                    System.out.printf("| %s ", board[i][j].getPieces().toString());
+                if(board[7 - i][j].getPieces()!=null) {
+                    System.out.printf("| %s ", board[7 - i][j].getPieces().toString());
                 }
                 else System.out.printf("|   ");
             }
@@ -113,7 +113,7 @@ public class Chess {
         int destY = move.charAt(5) - 48;
         Pieces pieceToMove = board[startY][startX].pieces;
         if (pieceToMove != null) {
-            if (pieceToMove.toString().equals(move.substring(0, 1))) {
+            if (pieceToMove.pieceStringType().equals(move.substring(0, 1))) {
                 if (pieceToMove.getColor() == currentPlayer.color) {
                     if (pieceToMove instanceof Pawn) {
                         Pawn pawn = (Pawn) pieceToMove;

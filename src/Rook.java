@@ -4,8 +4,9 @@ public class Rook extends Pieces{
     }
 
     public String toString() {
-        return "R";
+        return color == 1 ? Character.toString((char)(9814)) : Character.toString((char)(9820));
     }
+    public String pieceStringType(){ return "R";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);

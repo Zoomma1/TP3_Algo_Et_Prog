@@ -1,6 +1,6 @@
-abstract class Pieces {
-    int color;
-    Position position;
+public abstract class Pieces {
+    protected int color;
+    protected Position position;
 
     public Pieces(int color, Position position) {
         this.color = color;
@@ -20,6 +20,11 @@ abstract class Pieces {
     public String toString() {
         return super.toString();
     }
+    public Position getPosition() {
+        return position;
+    }
+
+    public String pieceStringType(){ return "";}
     public void setPosition(Position position){
         this.position = position;
     }
