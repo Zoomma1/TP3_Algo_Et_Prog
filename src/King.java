@@ -10,8 +10,8 @@ public class King extends Pieces {
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         if ((deltaX <= 1 && deltaY <= 1) && (deltaX + deltaY > 0)) {
-            Pieces pieceAtDestination = board[newPosition.column - 97][newPosition.row].getPieces();
-            if (board[newPosition.column - 97][newPosition.row].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+            Pieces pieceAtDestination = board[newPosition.row][newPosition.column - 97].getPieces();
+            if (board[newPosition.row][newPosition.column - 97].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
                 return true;
             }
         }

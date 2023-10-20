@@ -57,11 +57,11 @@ public class Chess {
         board[7][2] = new Cell(new Position('c', 8), new Bishop(1, new Position('c', 8)));
         board[7][5] = new Cell(new Position('f', 8), new Bishop(1, new Position('f', 8)));
 //      Queen initialisation
-        board[0][3] = new Cell(new Position('d', 1), new Queen(0, new Position('d', 1)));
-        board[7][3] = new Cell(new Position('d', 8), new Queen(1, new Position('d', 8)));
+        board[0][4] = new Cell(new Position('d', 1), new Queen(0, new Position('d', 1)));
+        board[7][4] = new Cell(new Position('d', 8), new Queen(1, new Position('d', 8)));
 //      King initialisation
-        board[0][4] = new Cell(new Position('e', 1), new King(0, new Position('e', 1)));
-        board[7][4] = new Cell(new Position('e', 8), new King(1, new Position('e', 8)));
+        board[0][3] = new Cell(new Position('e', 1), new King(0, new Position('e', 1)));
+        board[7][3] = new Cell(new Position('e', 8), new King(1, new Position('e', 8)));
 //      Empty cell initialisation
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
@@ -174,7 +174,7 @@ public class Chess {
                     return false;
                 }
             } else {
-                System.out.println("No " + pieceToMove.toString() + " on " + destX + destY);
+                System.out.println("No " + move.charAt(0) + " on " + startX + startY);
                     return false;
             }
         }

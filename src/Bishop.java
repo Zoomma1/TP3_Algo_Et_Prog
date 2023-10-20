@@ -22,12 +22,12 @@ public class Bishop extends Pieces {
                 int x = startX + i * xDirection;
                 int y = startY + i * yDirection;
 
-                if (!board[x][y].isEmpty()) {
+                if (!board[y][x].isEmpty()) {
                     return false;
                 }
             }
             Pieces pieceAtDestination = board[destX][destY].getPieces();
-            if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+            if (board[destY][destX].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
                 return true;
             }
         }

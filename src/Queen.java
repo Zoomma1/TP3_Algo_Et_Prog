@@ -20,7 +20,7 @@ public class Queen extends Pieces{
                 int x = startX + i * xDirection;
                 int y = startY + i * yDirection;
 
-                if (!board[x][y].isEmpty()) {
+                if (!board[y][x].isEmpty()) {
                     return false;
                 }
             }
@@ -30,7 +30,7 @@ public class Queen extends Pieces{
                 int x = startX + i * xDirection;
                 int y = startY + i * yDirection;
 
-                if (!board[x][y].isEmpty()) {
+                if (!board[y][x].isEmpty()) {
                     return false;
                 }
             }
@@ -38,8 +38,8 @@ public class Queen extends Pieces{
         else {
             return false;
         }
-        Pieces pieceAtDestination = board[destX][destY].getPieces();
-        if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+        Pieces pieceAtDestination = board[destY][destX].getPieces();
+        if (board[destY][destX].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
             return true;
         }
         return false;

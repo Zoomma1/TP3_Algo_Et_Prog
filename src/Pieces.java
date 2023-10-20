@@ -1,4 +1,4 @@
-public class Pieces {
+abstract class Pieces {
     int color;
     Position position;
 
@@ -7,8 +7,9 @@ public class Pieces {
         this.position = position;
     }
     public boolean isValidMove(Position newPosition, Cell[][] board){
-        String valid_board = "a b c d e f g h 1 2 3 4 5 6 7 8";
-        return valid_board.contains("%s".formatted(newPosition.row)) && valid_board.contains("%s".formatted(newPosition.column));
+        int x = newPosition.row;
+        int y = newPosition.column - 97;
+        return (x < 8 && x >= 0) && (y < 8 && y >= 0);
     }
 
     public int getColor() {

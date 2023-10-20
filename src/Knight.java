@@ -9,8 +9,8 @@ public class Knight extends Pieces{
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int newPosX = newPosition.column - 97;
         int newPosY = newPosition.row;
-        if(!board[newPosX][newPosY].isEmpty()){
-            if(color != board[newPosX][newPosY].pieces.getColor()){
+        if(!board[newPosY][newPosX].isEmpty()){
+            if(color != board[newPosY][newPosX].pieces.getColor()){
                 return false;
             }
         }
