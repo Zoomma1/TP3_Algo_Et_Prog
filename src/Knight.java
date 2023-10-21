@@ -8,6 +8,9 @@ public class Knight extends Pieces{
     }
     public String pieceStringType(){ return "N";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        if(!isInBoard(newPosition,board)){
+            return false;
+        }
         int newPosX = newPosition.column - 97;
         int newPosY = newPosition.row;
         if(!board[newPosY][newPosX].isEmpty()){
@@ -27,5 +30,9 @@ public class Knight extends Pieces{
     }
     public Position getPosition(){
         return position;
+    }
+    public Pieces createNewPieces() {
+        Knight newKnight = new Knight(this.color, this.position.copy());
+        return newKnight;
     }
 }

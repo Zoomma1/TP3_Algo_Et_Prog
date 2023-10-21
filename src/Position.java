@@ -9,4 +9,7 @@ public class Position{
     public String toString() {
         return (String.format("%c%d",column,row));
     }
+    public Position copy(){
+        return new Position(this.column,this.row);
+    }
 }

@@ -8,6 +8,9 @@ public class Queen extends Pieces{
     }
     public String pieceStringType(){ return "Q";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        if(!isInBoard(newPosition,board)){
+            return false;
+        }
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         int startX = position.column - 97;
@@ -50,5 +53,9 @@ public class Queen extends Pieces{
     }
     public Position getPosition(){
         return position;
+    }
+    public Pieces createNewPieces() {
+        Queen newqueen = new Queen(this.color, this.position.copy());
+        return newqueen;
     }
 }

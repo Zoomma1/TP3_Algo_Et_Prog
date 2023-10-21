@@ -7,6 +7,9 @@ public abstract class Pieces {
         this.position = position;
     }
     public boolean isValidMove(Position newPosition, Cell[][] board){
+        return isInBoard(newPosition,board);
+    }
+    public boolean isInBoard(Position newPosition , Cell[][] board){
         int x = newPosition.row;
         int y = newPosition.column - 97;
         return (x < 8 && x >= 0) && (y < 8 && y >= 0);
@@ -25,7 +28,12 @@ public abstract class Pieces {
     }
 
     public String pieceStringType(){ return "";}
-    public void setPosition(Position position){
+
+    public void setNewPosition(Position position){
         this.position = position;
+    }
+    public Pieces createNewPieces() {
+        Pieces newpieces = new Pieces(this.color, this.position.copy()) {};
+        return newpieces;
     }
 }

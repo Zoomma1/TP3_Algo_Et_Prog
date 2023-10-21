@@ -8,6 +8,9 @@ public class Rook extends Pieces{
     }
     public String pieceStringType(){ return "R";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        if(!isInBoard(newPosition,board)){
+            return false;
+        }
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         if (deltaX == 0 || deltaY == 0) {
@@ -45,5 +48,9 @@ public class Rook extends Pieces{
     }
     public Position getPosition(){
         return position;
+    }
+    public Pieces createNewPieces() {
+        Rook newrook = new Rook(this.color, this.position.copy());
+        return newrook;
     }
 }

@@ -8,6 +8,9 @@ public class Pawn extends Pieces{
     }
     public String pieceStringType(){ return "P";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        if(!isInBoard(newPosition,board)){
+            return false;
+        }
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         if (deltaX == 0) {
@@ -38,5 +41,9 @@ public class Pawn extends Pieces{
     }
     public Position getPosition(){
         return position;
+    }
+    public Pieces createNewPieces() {
+        Pawn newpawn = new Pawn(this.color, this.position.copy());
+        return newpawn;
     }
 }

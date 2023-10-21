@@ -10,6 +10,9 @@ public class Bishop extends Pieces {
     }
     public String pieceStringType(){ return "B";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        if(!isInBoard(newPosition,board)){
+            return false;
+        }
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         if (deltaX == deltaY) {
@@ -23,12 +26,12 @@ public class Bishop extends Pieces {
                 int x = startX + i * xDirection;
                 int y = startY + i * yDirection;
 
-                if (!board[y][x].isEmpty()) {
+                if (!board[x][y].isEmpty()) {
                     return false;
                 }
             }
             Pieces pieceAtDestination = board[destX][destY].getPieces();
-            if (board[destY][destX].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+            if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
                 return true;
             }
         }
@@ -39,5 +42,9 @@ public class Bishop extends Pieces {
     }
     public Position getPosition(){
         return position;
+    }
+    public Pieces createNewPieces() {
+        Bishop newbishop = new Bishop(this.color, this.position.copy());
+        return newbishop;
     }
 }

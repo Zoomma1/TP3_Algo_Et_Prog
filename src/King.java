@@ -8,6 +8,9 @@ public class King extends Pieces {
     }
     public String pieceStringType(){ return "K";}
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        if(!isInBoard(newPosition,board)){
+            return false;
+        }
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         if ((deltaX <= 1 && deltaY <= 1) && (deltaX + deltaY > 0)) {
@@ -23,5 +26,9 @@ public class King extends Pieces {
     }
     public Position getPosition(){
         return position;
+    }
+    public Pieces createNewPieces() {
+        King newking = new King(this.color, this.position.copy());
+        return newking;
     }
 }

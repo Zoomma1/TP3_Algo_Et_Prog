@@ -13,4 +13,7 @@ public class Player {
     public String toString() {
         return name;
     }
+    public String getStringColor(){
+        return color == 0 ? "white" : "Black";
+    }
 }

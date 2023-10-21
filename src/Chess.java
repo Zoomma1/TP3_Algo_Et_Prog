@@ -5,6 +5,7 @@ public class Chess {
     private Player[] players = new Player[2];
     private Player currentPlayer;
     Scanner ask_something = new Scanner(System.in);
+
     public void play() {
         while (true) {
             createPlayers();
@@ -12,6 +13,9 @@ public class Chess {
             while (!isCheckMate()) {
                 printBoard();
                 String move;
+                if(isCheck(currentPlayer.color, board)){
+                    System.out.printf("%s's king is check !\n",currentPlayer.getStringColor());
+                }
                 do {
                     move = askMove();
                 }
@@ -88,7 +92,6 @@ public class Chess {
     private String askMove(){
         String pieceToMove;
         String nextMove;
-        System.out.printf("%s ,\n",players[currentPlayer.color]);
         do {
             System.out.println("What piece do you want to move ?(ex : Pb2)");
             pieceToMove = ask_something.nextLine();
@@ -112,9 +115,14 @@ public class Chess {
         char destX = move.charAt(4);
         int destY = move.charAt(5) - 48;
         Pieces pieceToMove = board[startY][startX].pieces;
+        int currentPlayerColor = currentPlayer.color;
         if (pieceToMove != null) {
             if (pieceToMove.pieceStringType().equals(move.substring(0, 1))) {
-                if (pieceToMove.getColor() == currentPlayer.color) {
+                if (pieceToMove.getColor() == currentPlayerColor) {
+                    if(!isMoveLegal(board,move,currentPlayerColor)){
+                        System.out.println("Move put your king in check or your king is already in check !");
+                        return false;
+                    }
                     if (pieceToMove instanceof Pawn) {
                         Pawn pawn = (Pawn) pieceToMove;
                         if (pawn.isValidMove(new Position(destX, destY), board)) {
@@ -174,7 +182,7 @@ public class Chess {
                     return false;
                 }
             } else {
-                System.out.println("No " + move.charAt(0) + " on " + startX + startY);
+                System.out.println("No " + move.charAt(0) + " on " + move.charAt(1) + move.charAt(2));
                     return false;
             }
         }
@@ -194,9 +202,20 @@ public class Chess {
         int destX = move.charAt(4) - 97;
         int destY = move.charAt(5) - 49;
         Pieces pieces = board[startY][startX].getPieces();
-        pieces.setPosition(board[destY][destX].position);
+        pieces.setNewPosition(board[destY][destX].position);
         board[startY][startX].setPieces(null);
         board[destY][destX].setPieces(pieces);
+//        updatetmpBoard(move);
+    }
+    private void updatetmpBoard(String move , Cell[][] tmpBoard){
+        int startX = move.charAt(1) - 97;
+        int startY = move.charAt(2) - 49;
+        int destX = move.charAt(4) - 97;
+        int destY = move.charAt(5) - 49;
+        Pieces pieces = tmpBoard[startY][startX].getPieces();
+        pieces.setNewPosition(tmpBoard[destY][destX].position);
+        tmpBoard[startY][startX].setPieces(null);
+        tmpBoard[destY][destX].setPieces(pieces);
     }
     private void switchPlayer(){
         if (currentPlayer.equals(players[0])){
@@ -207,5 +226,57 @@ public class Chess {
             currentPlayer = players[0];
             System.out.printf("%s's turn to play !\n",currentPlayer);
         }
+    }
+    public Position findKing(int color, Cell[][] board){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(!board[j][i].isEmpty() && board[j][i].getPieces() instanceof King && board[j][i].getPieces().color == color){
+                    return board[j][i].position;
+                }
+            }
+        }
+        return null;
+    }
+    public boolean isCheck(int color, Cell[][] board){
+        Position kingPosition = findKing(color,board);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (!board[j][i].isEmpty() && board[j][i].getPieces().color != color && board[j][i].getPieces().isValidMove(kingPosition , board)){
+                    System.out.printf("King is in check by %s", board[j][i].getPieces().position.toString());
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isMoveLegal(Cell[][] board, String move, int playerColor) {
+        Cell[][] tmpBoard = copyBoard(board);
+        updatetmpBoard(move,tmpBoard);
+        if (isCheck(playerColor, tmpBoard)) {
+            return false;
+        }
+        return true;
+    }
+    private Cell[][] copyBoard(Cell[][] originalBoard) {
+        Cell[][] newBoard = new Cell[8][8];
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Cell originalCell = originalBoard[row][col];
+                if (originalCell != null) {
+                    Position position = originalCell.position.copy();
+                    Pieces originalPiece = originalCell.getPieces();
+                    Pieces newPiece = null;
+                    if (originalPiece != null) {
+                        newPiece = originalPiece.createNewPieces();
+                        newPiece.setNewPosition(position);
+                    }
+                    newBoard[row][col] = new Cell(position, newPiece);
+                } else {
+                    newBoard[row][col] = new Cell(new Position((char) ('a' + col), 8 - row), null);
+                }
+            }
+        }
+        return newBoard;
     }
 }
