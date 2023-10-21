@@ -10,7 +10,7 @@ public abstract class Pieces {
         return isInBoard(newPosition,board);
     }
     public boolean isInBoard(Position newPosition , Cell[][] board){
-        int x = newPosition.row;
+        int x = newPosition.row - 1;
         int y = newPosition.column - 97;
         return (x < 8 && x >= 0) && (y < 8 && y >= 0);
     }

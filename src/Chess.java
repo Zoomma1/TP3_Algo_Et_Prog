@@ -120,12 +120,34 @@ public class Chess {
             if (pieceToMove.pieceStringType().equals(move.substring(0, 1))) {
                 if (pieceToMove.getColor() == currentPlayerColor) {
                     if(!isMoveLegal(board,move,currentPlayerColor)){
-                        System.out.println("Move put your king in check or your king is already in check !");
+                        System.out.println("Move put your king in check or your king is still in check !");
                         return false;
                     }
                     if (pieceToMove instanceof Pawn) {
                         Pawn pawn = (Pawn) pieceToMove;
                         if (pawn.isValidMove(new Position(destX, destY), board)) {
+                            if(destY == 8 || destY==1){
+                                String promotion;
+                                do{
+                                    System.out.println("What piece do you want to promote to ? (Q R N B)");
+                                    Scanner scanner = new Scanner(System.in);
+                                    promotion = scanner.nextLine();
+                                }while (promotion.length() != 1 && (promotion.equals("Q") || promotion.equals("R") || promotion.equals("N") || promotion.equals("B")));
+                                switch (promotion){
+                                    case "Q":
+                                        board[startY][startX].setPieces(new Queen(currentPlayerColor,pawn.position));
+                                        break;
+                                    case "R":
+                                        board[startY][startX].setPieces(new Rook(currentPlayerColor,pawn.position));
+                                        break;
+                                    case "N":
+                                        board[startY][startX].setPieces(new Knight(currentPlayerColor,pawn.position));
+                                        break;
+                                    case "B":
+                                        board[startY][startX].setPieces(new Bishop(currentPlayerColor,pawn.position));
+                                        break;
+                                }
+                            }
                             return true;
                         } else {
                             System.out.println("Move is not valid!");
@@ -192,8 +214,7 @@ public class Chess {
             }
     }
     private boolean isCheckMate(){
-//        does the king have a valid move ?
-//        can any other piece counter the check ?
+        if(isCheck(currentPlayer.color, board)){return false;}
         return false;
     }
     private void updateBoard(String move){
@@ -205,7 +226,6 @@ public class Chess {
         pieces.setNewPosition(board[destY][destX].position);
         board[startY][startX].setPieces(null);
         board[destY][destX].setPieces(pieces);
-//        updatetmpBoard(move);
     }
     private void updatetmpBoard(String move , Cell[][] tmpBoard){
         int startX = move.charAt(1) - 97;
@@ -242,7 +262,7 @@ public class Chess {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (!board[j][i].isEmpty() && board[j][i].getPieces().color != color && board[j][i].getPieces().isValidMove(kingPosition , board)){
-                    System.out.printf("King is in check by %s", board[j][i].getPieces().position.toString());
+                    System.out.printf("King is in check by %s\n", board[j][i].getPieces().position.toString());
                     return true;
                 }
             }
@@ -259,7 +279,6 @@ public class Chess {
     }
     private Cell[][] copyBoard(Cell[][] originalBoard) {
         Cell[][] newBoard = new Cell[8][8];
-
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Cell originalCell = originalBoard[row][col];

@@ -12,14 +12,14 @@ public class Knight extends Pieces{
             return false;
         }
         int newPosX = newPosition.column - 97;
-        int newPosY = newPosition.row;
+        int newPosY = newPosition.row - 1;
         if(!board[newPosY][newPosX].isEmpty()){
             if(color != board[newPosY][newPosX].pieces.getColor()){
                 return false;
             }
         }
         int deltaX = Math.abs(newPosition.column - position.column);
-        int deltaY = Math.abs(newPosition.row - position.row);
+        int deltaY = Math.abs(newPosition.row - position.row - 1);
         if ((deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2)) {
             return newPosX >= 0 && newPosX < 8 && newPosY >= 0 && newPosY < 8;
         }

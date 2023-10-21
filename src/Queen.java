@@ -14,9 +14,9 @@ public class Queen extends Pieces{
         int deltaX = Math.abs(newPosition.column - position.column);
         int deltaY = Math.abs(newPosition.row - position.row);
         int startX = position.column - 97;
-        int startY = position.row;
+        int startY = position.row - 1;
         int destX = newPosition.column - 97;
-        int destY = newPosition.row;
+        int destY = newPosition.row - 1;
         int xDirection = (destX > startX) ? 1 : (destX < startX) ? -1 : 0;
         int yDirection = (destY > startY) ? 1 : (destY < startY) ? -1 : 0;
         if ((deltaX == 0 && deltaY > 0) || (deltaY == 0 && deltaX > 0)) {

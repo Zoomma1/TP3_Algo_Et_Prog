@@ -17,21 +17,20 @@ public class Bishop extends Pieces {
         int deltaY = Math.abs(newPosition.row - position.row);
         if (deltaX == deltaY) {
             int startX = position.column - 97;
-            int startY = position.row;
+            int startY = position.row - 1;
             int destX = newPosition.column - 97;
-            int destY = newPosition.row;
+            int destY = newPosition.row - 1;
             int xDirection = (destX > startX) ? 1 : -1;
             int yDirection = (destY > startY) ? 1 : -1;
             for (int i = 1; i < deltaX; i++) {
                 int x = startX + i * xDirection;
                 int y = startY + i * yDirection;
-
                 if (!board[x][y].isEmpty()) {
                     return false;
                 }
             }
-            Pieces pieceAtDestination = board[destX][destY].getPieces();
-            if (board[destX][destY].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
+            Pieces pieceAtDestination = board[destY][destX].getPieces();
+            if (board[destY][destX].isEmpty() || pieceAtDestination.getColor() != this.getColor()) {
                 return true;
             }
         }

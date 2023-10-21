@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Pawn extends Pieces{
     public Pawn(int color, Position position) {
         super(color, position);
