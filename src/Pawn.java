@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Pawn extends Pieces{
@@ -37,6 +38,25 @@ public class Pawn extends Pieces{
             }
         }
         return false;
+    }
+    public ArrayList<Position> generatePossibleMoves(Cell[][] board){
+        ArrayList<Position> possibleMoves = new ArrayList<>();
+        int x = position.column - 97;
+        int y = position.row - 1;
+        int direction = (color == 0) ? 1 : -1;
+        if (isValidMove(new Position((char)(position.column), position.row + direction),board)) {
+            possibleMoves.add(new Position(position.column, position.row + direction));
+        }
+        if (isValidMove(new Position((char)(position.column), position.row + 2 * direction),board)) {
+            possibleMoves.add(new Position(position.column, position.row + 2 * direction));
+        }
+        if (isValidMove(new Position((char)(position.column + 1), position.row + direction),board)) {
+            possibleMoves.add(new Position((char)(position.column + 1), position.row + direction));
+        }
+        if (isValidMove(new Position((char)(position.column - 1), position.row + direction),board)) {
+            possibleMoves.add(new Position((char)(position.column - 1), position.row + direction));
+        }
+        return possibleMoves;
     }
     public void setNewPosition(Position newPosition){
         this.position=newPosition;

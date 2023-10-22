@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Queen extends Pieces{
     public Queen(int color, Position position) {
         super(color, position);
@@ -57,5 +59,63 @@ public class Queen extends Pieces{
     public Pieces createNewPieces() {
         Queen newqueen = new Queen(this.color, this.position.copy());
         return newqueen;
+    }
+    public ArrayList<Position> generatePossibleMoves(Cell[][] board){
+        ArrayList<Position> possibleMoves = new ArrayList<>();
+        int x = position.column - 97;
+        int y = position.row - 1;
+        for (int i = 0; i < 7; i++) {
+            if(isValidMove(new Position(position.column,y),board)){
+                possibleMoves.add(new Position(position.column , y));
+            }
+            if(isValidMove(new Position((char)(position.column + i), position.row),board)){
+                possibleMoves.add(new Position((char)(position.column + i), position.row));
+            }
+        }
+        int row = y + 1;
+        for (int col = x + 1; col < 8 && row <= 8; col++, row++) {
+            if (isValidMove(new Position((char)('a'+row),col),board) && board[row][col].getPieces().getColor() != color) {
+                if (board[row][col].isEmpty()) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        row = y + 1;
+        for (int col = x - 1; col >= 0 && row <= 8; col--, row++) {
+            if (isValidMove(new Position((char)('a'+row),col),board)) {
+                if (board[row][col].isEmpty() && board[row][col].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        row = y - 1;
+        for (int col = x + 1; col < 8 && row >= 1; col++, row--) {
+            if (isValidMove(new Position((char)('a'+row),col),board)) {
+                if (board[row][col].isEmpty() && board[row][col].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        row = y - 1;
+        for (int col = x - 1; col >= 0 && row >= 1; col--, row--) {
+            if (isValidMove(new Position((char)('a'+row),col),board)) {
+                if (board[row][col].isEmpty() && board[row][col].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        return possibleMoves;
     }
 }

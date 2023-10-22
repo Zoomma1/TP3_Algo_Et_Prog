@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Rook extends Pieces{
     public Rook(int color, Position position) {
         super(color, position);
@@ -52,5 +54,19 @@ public class Rook extends Pieces{
     public Pieces createNewPieces() {
         Rook newrook = new Rook(this.color, this.position.copy());
         return newrook;
+    }
+    public ArrayList<Position> generatePossibleMoves(Cell[][] board){
+        ArrayList<Position> possibleMoves = new ArrayList<>();
+        int x = position.column - 97;
+        int y = position.row - 1;
+        for (int i = 0; i < 7; i++) {
+            if(isValidMove(new Position(position.column,y),board)){
+                possibleMoves.add(new Position(position.column , y));
+            }
+            if(isValidMove(new Position((char)(position.column + i), position.row),board)){
+                possibleMoves.add(new Position((char)(position.column + i), position.row));
+            }
+        }
+        return possibleMoves;
     }
 }

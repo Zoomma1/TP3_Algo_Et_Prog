@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chess {
@@ -11,6 +12,7 @@ public class Chess {
             createPlayers();
             initialiseBoard();
             while (!isCheckMate()) {
+                System.out.printf("%s's turn to play !\n",currentPlayer);
                 printBoard();
                 String move;
                 if(isCheck(currentPlayer.color, board)){
@@ -22,6 +24,16 @@ public class Chess {
                 while (!isValidMove(move));
                 updateBoard(move);
                 switchPlayer();
+            }
+            System.out.println(currentPlayer.name + " lost the game !");
+            String newGame = "";
+            do{
+                System.out.println("New game Y/N ?");
+                newGame = ask_something.nextLine();
+                System.out.println(newGame);
+            }while (!newGame.equals("Y") && !newGame.equals("N") && !newGame.equals("y") && !newGame.equals("n") );
+            if (newGame.equals("N") || newGame.equals("n")){
+                break;
             }
         }
     }
@@ -214,8 +226,25 @@ public class Chess {
             }
     }
     private boolean isCheckMate(){
-        if(isCheck(currentPlayer.color, board)){return false;}
-        return false;
+        if (!isCheck(currentPlayer.color, board)) {
+            return false;
+        }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Cell cell = board[i][j];
+                if (!cell.isEmpty() && cell.getPieces().getColor() == currentPlayer.color) {
+                    ArrayList<Position> possibleMoves = cell.getPieces().generatePossibleMoves(board);
+                    for (Position move : possibleMoves) {
+                        Cell[][] tmpBoard = copyBoard(board);
+                        updatetmpBoard(cell.getPieces().pieceStringType() + cell.getPieces().position.toString() + " " + move.toString(),tmpBoard);
+                        if (!isCheck(currentPlayer.color, tmpBoard)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
     private void updateBoard(String move){
         int startX = move.charAt(1) - 97;
@@ -240,11 +269,9 @@ public class Chess {
     private void switchPlayer(){
         if (currentPlayer.equals(players[0])){
             currentPlayer = players[1];
-            System.out.printf("%s's turn to play !\n",currentPlayer);
         }
         else{
             currentPlayer = players[0];
-            System.out.printf("%s's turn to play !\n",currentPlayer);
         }
     }
     public Position findKing(int color, Cell[][] board){
@@ -262,7 +289,6 @@ public class Chess {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (!board[j][i].isEmpty() && board[j][i].getPieces().color != color && board[j][i].getPieces().isValidMove(kingPosition , board)){
-                    System.out.printf("King is in check by %s\n", board[j][i].getPieces().position.toString());
                     return true;
                 }
             }

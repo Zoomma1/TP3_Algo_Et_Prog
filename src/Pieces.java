@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Pieces {
     protected int color;
     protected Position position;
@@ -18,7 +20,6 @@ public abstract class Pieces {
     public int getColor() {
         return color;
     }
-
     @Override
     public String toString() {
         return super.toString();
@@ -35,5 +36,9 @@ public abstract class Pieces {
     public Pieces createNewPieces() {
         Pieces newpieces = new Pieces(this.color, this.position.copy()) {};
         return newpieces;
+    }
+    public ArrayList<Position> generatePossibleMoves(Cell[][] board) {
+        ArrayList<Position> possibleMoves = new ArrayList<>();
+        return possibleMoves;
     }
 }

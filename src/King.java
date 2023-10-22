@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class King extends Pieces {
     public King(int color, Position position) {
         super(color, position);
@@ -30,5 +32,24 @@ public class King extends Pieces {
     public Pieces createNewPieces() {
         King newking = new King(this.color, this.position.copy());
         return newking;
+    }
+    public ArrayList<Position> generatePossibleMoves(Cell[][] board){
+        ArrayList<Position> possibleMoves = new ArrayList<>();
+        int x = position.column - 97;
+        int y = position.row - 1;
+        int[] dx = {1, 1, 1, 0, 0, -1, -1, -1};
+        int[] dy = {1, 0, -1, 1, -1, 1, 0, -1};
+        for (int i = 0; i < 8; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            if (isValidMove(new Position((char)('a'+newX),newY+1),board)) {
+                if (board[newY][newX].isEmpty() || board[newY][newX].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + newX), newY+1));
+                }
+            }
+        }
+
+        return possibleMoves;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Bishop extends Pieces {
 
     public Bishop(int color, Position position) {
@@ -45,5 +47,55 @@ public class Bishop extends Pieces {
     public Pieces createNewPieces() {
         Bishop newbishop = new Bishop(this.color, this.position.copy());
         return newbishop;
+    }
+    public ArrayList<Position> generatePossibleMoves(Cell[][] board){
+        ArrayList<Position> possibleMoves = new ArrayList<>();
+        int x = position.column - 97;
+        int y = position.row - 1;
+        int row = y + 1;
+        for (int col = x + 1; col < 8 && row <= 8; col++, row++) {
+            if (isValidMove(new Position((char)('a'+row),col),board) && board[row][col].getPieces().getColor() != color) {
+                if (board[row][col].isEmpty()) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        row = y + 1;
+        for (int col = x - 1; col >= 0 && row <= 8; col--, row++) {
+            if (isValidMove(new Position((char)('a'+row),col),board)) {
+                if (board[row][col].isEmpty() && board[row][col].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        row = y - 1;
+        for (int col = x + 1; col < 8 && row >= 1; col++, row--) {
+            if (isValidMove(new Position((char)('a'+row),col),board)) {
+                if (board[row][col].isEmpty() && board[row][col].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        row = y - 1;
+        for (int col = x - 1; col >= 0 && row >= 1; col--, row--) {
+            if (isValidMove(new Position((char)('a'+row),col),board)) {
+                if (board[row][col].isEmpty() && board[row][col].getPieces().getColor() != color) {
+                    possibleMoves.add(new Position((char) ('a' + col), row));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        return possibleMoves;
     }
 }
