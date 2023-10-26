@@ -25,6 +25,7 @@ public class Chess {
                 updateBoard(move);
                 switchPlayer();
             }
+            printBoard();
             System.out.println(currentPlayer.name + " lost the game !");
             String newGame = "";
             do{
@@ -107,6 +108,10 @@ public class Chess {
         do {
             System.out.println("What piece do you want to move ?(ex : Pb2)");
             pieceToMove = ask_something.nextLine();
+//          Checking if player wants to castle (WIP)
+            if(pieceToMove.equals("O-O") || pieceToMove.equals("O-O-O")){
+                return pieceToMove;
+            }
         }while ("".equals(pieceToMove));
         do {
             System.out.println("Where do you want to move it ?(ex : b3)");
@@ -120,6 +125,16 @@ public class Chess {
         return(move);
     }
     private boolean isValidMove(String move) {
+        int currentPlayerColor = currentPlayer.color;
+//      Is casteling a valid move ? (WIP)
+        if(move.equals("O-O") || move.equals("O-O-O")){
+            int kingRow = findKing(currentPlayerColor,board).row;
+            return castle(new Position('h',kingRow),board);
+            }
+        else if(move.equals("O-O-O")){
+            int kingRow = findKing(currentPlayerColor,board).row;
+            return castle(new Position('a',kingRow),board);
+        }
 //      Gather starting coordinates
         int startX = move.charAt(1) - 97;
         int startY = move.charAt(2) - 49;
@@ -127,7 +142,6 @@ public class Chess {
         char destX = move.charAt(4);
         int destY = move.charAt(5) - 48;
         Pieces pieceToMove = board[startY][startX].pieces;
-        int currentPlayerColor = currentPlayer.color;
         if (pieceToMove != null) {
             if (pieceToMove.pieceStringType().equals(move.substring(0, 1))) {
                 if (pieceToMove.getColor() == currentPlayerColor) {
@@ -323,5 +337,60 @@ public class Chess {
             }
         }
         return newBoard;
+    }
+//  WIP
+    public boolean castle(Position newPosition, Cell[][] board) {
+        if (!isValidCastleMove(newPosition, board)) {
+            return false;
+        }
+        Position kingPosition = findKing(currentPlayer.color, board);
+        King king = new King(currentPlayer.color,kingPosition);
+        int startX = kingPosition.column - 'a';
+        int startY = kingPosition.row - 1;
+        int destX = newPosition.column - 'a';
+        int destY = newPosition.row - 1;
+        String newPositionMove = king.pieceStringType() + kingPosition.toString() + " " + newPosition.toString();
+        if (isCheck(currentPlayer.color, board) || isMoveLegal(board, newPositionMove, currentPlayer.color)) {
+            return false;
+        }
+        if (destX > startX) {
+            board[startY][startX].setPieces(null);
+            board[destY][destX] = board[startY][startX];
+            board[startY][startX + 3] = board[startY][startX + 1];
+            board[startY][startX + 1] = null;
+            return true;
+        } else {
+            board[startY][startX].setPieces(null);
+            board[destY][destX] = board[startY][startX];
+            board[startY][startX - 4] = board[startY][startX - 2];
+            board[startY][startX - 2] = null;
+            return true;
+        }
+    }
+//  WIP
+    public boolean isValidCastleMove(Position newPosition, Cell[][] board) {
+        Position kingPosition = findKing(currentPlayer.color, board);
+        int deltaX = Math.abs(newPosition.column - kingPosition.column);
+        int deltaY = Math.abs(newPosition.row - kingPosition.row);
+        if (deltaX != 2 || deltaY != 0) {
+            return false;
+        }
+        if (newPosition.column > kingPosition.column) {
+            for (int i = kingPosition.column + 1; i < newPosition.column; i++) {
+                if (!board[kingPosition.row - 1][i - 'a'].isEmpty()) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = kingPosition.column - 1; i > newPosition.column; i--) {
+                if (!board[kingPosition.row - 1][i - 'a'].isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        if (kingPosition.row != newPosition.row || (kingPosition.column != 'e' && kingPosition.column != 'c')) {
+            return false;
+        }
+        return true;
     }
 }
